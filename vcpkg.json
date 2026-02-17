@@ -1,0 +1,7 @@
+{
+    "name": "raspberrypi-indeema",
+    "version": "1.0.0",
+    "dependencies": [
+        "jsoncpp"
+    ]
+}
