@@ -7,14 +7,14 @@ add_subdirectory(common)
 
 find_package(jsoncpp CONFIG REQUIRED)
 
-add_executable(rpi_learning main.cpp)
+file(GLOB SRC "${CMAKE_SOURCE_DIR}/common/src/*.cpp")
 
-set(SERIAL_ROOT "${CMAKE_SOURCE_DIR}/third_party/serial")
+add_executable(rpi_learning main.cpp ${SRC})
 
-target_include_directories(rpi_learning PRIVATE "${SERIAL_ROOT}/include")
+target_include_directories(rpi_learning PRIVATE "${CMAKE_SOURCE_DIR}/common/include")
 
 target_link_libraries(rpi_learning PRIVATE
                                         common
                                         JsonCpp::JsonCpp
-                                        "${SERIAL_ROOT}/lib/libserial.a"
+                                        "${CMAKE_SOURCE_DIR}/common/lib/libserial.a"
                                         pthread)

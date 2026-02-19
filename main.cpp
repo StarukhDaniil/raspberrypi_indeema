@@ -2,42 +2,16 @@
 #include "json/json.h"
 #include "serial/serial.h"
 #include "logger.hpp"
+#include "jsonparser.hpp"
 
 int main() {
-    // json check
-    Json::Value root;
-    root["name"] = "Daniil";
+    JsonParser parser;
+    std::string file_path;
 
-    Json::StreamWriterBuilder builder;
-    const std::string json_file = Json::writeString(builder, root);
+    std::cin >> file_path;
+    DevInfo info(parser.parseFile(file_path));
 
-    std::cout << json_file << std::endl;
-
-    std::cout << "----------------------------------" << std::endl;
-    // serial check
-
-    serial::Serial serial_port("/dev/ttyUSB0", 115200, serial::Timeout::simpleTimeout(1000));
-
-    if (serial_port.isOpen()) {
-        std::cout << "Port is opened..." << std::endl;
-    }
-    else {
-        std::cout << "Failed to open port..." << std::endl;
-        return -1;
-    }
-
-    std::string msg_send("hello!");
-    size_t bytes_sent = serial_port.write(msg_send);
-    std::cout << std::to_string(bytes_sent) + " bytes sent..." << std::endl;
-
-    if (serial_port.waitReadable()) {
-        std::string result = serial_port.read(msg_send.length());
-        std::cout << "Received: " + result << std::endl;
-    }
-    else {
-        std::cout << "Timeout, failed to recieve...";
-        return -1;
-    }
-
+    std::cout << "path: " << info.path() << std::endl;
+    std::cout << "baud_rate: " << std::to_string(info.baud_rate()) << std::endl;
     return 0;
 }
