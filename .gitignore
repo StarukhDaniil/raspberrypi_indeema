@@ -3,3 +3,5 @@ third_party
 build/
 _run
 _build
+vcpkg.json
+vcpkg-configuration.json
