@@ -15,6 +15,7 @@ target_include_directories(rpi_learning PRIVATE "${CMAKE_SOURCE_DIR}/common/incl
 
 target_link_libraries(rpi_learning PRIVATE
                                         common
+                                        tsafecontainer
                                         JsonCpp::JsonCpp
                                         "${CMAKE_SOURCE_DIR}/common/lib/libserial.a"
                                         pthread)
