@@ -7,4 +7,8 @@ add_subdirectory(common)
 
 add_executable(rpi_learning main.cpp)
 
-target_link_libraries(rpi_learning PRIVATE common)
+target_include_directories(rpi_learning PRIVATE "${CMAKE_SOURCE_DIR}/common/include")
+
+target_link_libraries(rpi_learning PRIVATE
+                                        common
+                                        pthread)
